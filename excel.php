@@ -44,8 +44,14 @@ while ($row_data = $result->fetch_assoc()) {
     $sheet->setCellValue('B' . $row, $row_data['nome']);
     $sheet->setCellValue('C' . $row, $row_data['endereco']);
     $sheet->setCellValue('D' . $row, $row_data['cidade']);
-    $sheet->setCellValue('E' . $row, $row_data['cep']);
-    $sheet->setCellValue('F' . $row, $row_data['telefone']);
+    
+    $cep = $row_data['cep'];
+    $cep_formatado = substr($cep, 0, 5) . '-' . substr($cep, 5);
+    $sheet->setCellValue('E' . $row, $cep_formatado);
+
+    $telefone = $row_data['telefone'] ;
+    $telefone_formatado = '(' . substr($telefone, 0, 2). ') '. substr($telefone, 2, 4). '-'. substr($telefone, 5) ;
+    $sheet->setCellValue('F' . $row, $telefone_formatado);
     $row++;
 }
 
